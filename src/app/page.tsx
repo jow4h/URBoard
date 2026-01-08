@@ -21,7 +21,6 @@ import { Suspense } from "react";
 function HomeContent() {
   const { settings, isLoaded, t } = useSettings();
   const searchParams = useSearchParams();
-  const [isDemo, setIsDemo] = useState(false);
   const [internalShowDashboard, setInternalShowDashboard] = useState(false);
 
   // Check if opened from extension
@@ -29,7 +28,7 @@ function HomeContent() {
 
   // Revised logic: Only show dashboard if Extension, Demo, or explicit Onboarding.
   // Returning web visitors see the Promo page.
-  const showDashboard = isExtension || isDemo || (isLoaded && settings.isOnboarded && internalShowDashboard) || internalShowDashboard;
+  const showDashboard = isExtension || (isLoaded && settings.isOnboarded && internalShowDashboard) || internalShowDashboard;
 
   if (!isLoaded) return <div className="min-h-screen bg-black" />;
 
@@ -45,7 +44,6 @@ function HomeContent() {
           <Navbar showClock={false} />
           <LandingPage
             onGetStarted={() => setInternalShowDashboard(true)}
-            onDemo={() => setIsDemo(true)}
           />
         </div>
       </main>
@@ -57,22 +55,6 @@ function HomeContent() {
 
   return (
     <main className="h-screen relative overflow-hidden bg-background">
-      {/* Demo Mode Floating Badge */}
-      {isDemo && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] bg-accent/90 backdrop-blur-xl text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-6 border border-white/20 animate-bounce-slow">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">{t("sectionDemo").split(" ")[1] || "Demo"} Mode</span>
-          </div>
-          <div className="w-[1px] h-4 bg-white/20" />
-          <button
-            onClick={() => setIsDemo(false)}
-            className="text-[10px] font-black uppercase tracking-[0.2em] hover:text-white/60 transition-colors"
-          >
-            {t("cancel")}
-          </button>
-        </div>
-      )}
 
       {/* Dynamic Wallpaper */}
       {wallpaperUrl && (

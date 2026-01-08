@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ListTodo, Plus, Trash2, CheckCircle2, Circle } from "lucide-react";
 import WidgetWrapper from "@/components/dashboard/WidgetWrapper";
 import { useSettings } from "@/context/SettingsContext";
@@ -15,6 +15,26 @@ export default function TodoWidget() {
     const { t } = useSettings();
     const [todos, setTodos] = useState<Todo[]>([]);
     const [inputValue, setInputValue] = useState("");
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // Load todos
+    useEffect(() => {
+        const saved = localStorage.getItem("urboard-todos");
+        if (saved) {
+            try {
+                setTodos(JSON.parse(saved));
+            } catch (e) {
+                console.error("Failed to parse todos", e);
+            }
+        }
+        setIsLoaded(true);
+    }, []);
+
+    // Save todos
+    useEffect(() => {
+        if (!isLoaded) return;
+        localStorage.setItem("urboard-todos", JSON.stringify(todos));
+    }, [todos, isLoaded]);
 
     const addTodo = () => {
         if (!inputValue.trim()) return;

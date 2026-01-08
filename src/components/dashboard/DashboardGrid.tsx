@@ -8,7 +8,8 @@ import TodoWidget from "@/components/widgets/TodoWidget";
 import PomodoroWidget from "@/components/widgets/PomodoroWidget";
 import SpotifyWidget from "@/components/widgets/SpotifyWidget";
 import SearchWidget from "@/components/widgets/SearchWidget";
-import { Plus, X as CloseIcon, MapPin, Music, CheckSquare, Timer, Link as LinkIcon, Settings as SettingsIcon, Lock, LockOpen } from "lucide-react";
+import NotesWidget from "@/components/widgets/NotesWidget";
+import { Plus, X as CloseIcon, MapPin, Music, CheckSquare, Timer, Link as LinkIcon, Settings as SettingsIcon, Lock, LockOpen, StickyNote } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -195,9 +196,24 @@ export default function DashboardGrid() {
                         <PomodoroWidget />
                     </div>
                 )}
+
+                {settings.activeWidgets.includes("notes") && (
+                    <div key="notes" data-grid={{ x: 8, y: 4, w: 4, h: 6, minW: 2, minH: 2 }} className="cursor-default group">
+                        <div className="absolute top-3 right-3 z-[60] opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                                onClick={() => toggleWidget("notes")}
+                                className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                            >
+                                <CloseIcon size={14} />
+                            </button>
+                        </div>
+                        <div className="widget-handle absolute top-0 left-0 right-0 z-50 h-8 cursor-grab flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="w-12 h-1 rounded-full bg-white/20 mt-2" />
+                        </div>
+                        <NotesWidget />
+                    </div>
+                )}
             </ResponsiveGridLayout>
-
-
 
             {/* Add Widget Floating Button */}
             <div className="fixed bottom-10 right-10 z-[100]">
@@ -242,6 +258,7 @@ export default function DashboardGrid() {
                                 { id: "spotify", label: t("spotify"), icon: Music },
                                 { id: "todo", label: t("todo"), icon: CheckSquare },
                                 { id: "pomodoro", label: t("pomodoro"), icon: Timer },
+                                { id: "notes", label: t("notes"), icon: StickyNote },
                             ].map((w) => {
                                 const isActive = settings.activeWidgets.includes(w.id);
                                 return (

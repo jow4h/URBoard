@@ -6,10 +6,9 @@ import { useSettings } from "@/context/SettingsContext";
 
 interface LandingPageProps {
     onGetStarted: () => void;
-    onDemo: () => void;
 }
 
-export default function LandingPage({ onGetStarted, onDemo }: LandingPageProps) {
+export default function LandingPage({ onGetStarted }: LandingPageProps) {
     const { t } = useSettings();
 
 
@@ -90,7 +89,7 @@ export default function LandingPage({ onGetStarted, onDemo }: LandingPageProps) 
                             href="https://github.com/jow4h/URBoard/releases/download/latest/urboard-extension.zip"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full sm:w-1/2 min-h-[90px] px-6 py-5 bg-accent text-[var(--accent-contrast)] font-black rounded-[1.5rem] flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-accent/20 group"
+                            className="w-full max-w-md min-h-[90px] px-6 py-5 bg-accent text-[var(--accent-contrast)] font-black rounded-[1.5rem] flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-accent/20 group"
                         >
                             <div className="flex items-center gap-3">
                                 <span className="text-xl tracking-tight uppercase">{t("ctaDownload")}</span>
@@ -99,16 +98,7 @@ export default function LandingPage({ onGetStarted, onDemo }: LandingPageProps) 
                             <span className="text-[11px] uppercase tracking-[0.1em] opacity-80 mt-1.5 font-bold text-center leading-none">{t("ctaDownloadDesc")}</span>
                         </a>
 
-                        <button
-                            onClick={onDemo}
-                            className="w-full sm:w-1/2 min-h-[90px] px-6 py-5 bg-white text-black font-black rounded-[1.5rem] flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl group border border-white/10"
-                        >
-                            <div className="flex items-center gap-3">
-                                <span className="text-xl tracking-tight uppercase">{t("ctaDemo")}</span>
-                                <MousePointer2 size={18} className="group-hover:rotate-12 transition-transform" />
-                            </div>
-                            <span className="text-[11px] uppercase tracking-[0.1em] opacity-80 mt-1.5 font-bold text-center leading-none">{t("ctaDemoDesc")}</span>
-                        </button>
+
                     </motion.div>
                 </div>
 
@@ -181,16 +171,15 @@ export default function LandingPage({ onGetStarted, onDemo }: LandingPageProps) 
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
                     <div>
                         <div className="text-3xl font-black tracking-tighter mb-2">UR<span className="text-accent">BOARD</span></div>
-                        <div className="text-white/20 text-sm font-bold uppercase tracking-widest">© 2026 Crafted with ❤️</div>
+                        <div className="text-white/20 text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+                            © 2026 Crafted with ❤️ by <a href="https://github.com/jow4h" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors underline decoration-accent/30 decoration-2 underline-offset-4">jow4h</a>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-8">
-                        <a href="https://github.com" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
+                        <a href="https://github.com/jow4h" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
                             <Github size={24} />
                         </a>
-                        <button onClick={onDemo} className="text-sm font-bold uppercase tracking-widest text-white/40 hover:text-accent transition-colors">
-                            Demo
-                        </button>
                     </div>
                 </div>
             </footer>

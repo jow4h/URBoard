@@ -18,7 +18,7 @@ export const translations = {
         todo: "Yapılacaklar",
         pomodoro: "Pomodoro",
         searchPlaceholder: "ara...",
-        welcome: "Hoş Geldin, URBoard Dünyasına!",
+        welcome: "Hoş Geldin",
         setupText: "Kişisel dashboard'un için küçük bir hazırlık yapalım.",
         getStarted: "Hemen Başla",
         signOut: "Çıkış Yap",
@@ -97,6 +97,10 @@ export const translations = {
         locked: "Düzen Kilitli",
         unlock: "Kilidi Aç",
         onboardingHint: "Widget eklemek için sağ alttaki + butonunu kullanın",
+        notes: "Hızlı Notlar",
+        addNote: "Not Ekle",
+        noNotes: "Henüz not yok",
+        notePlaceholder: "Bir şeyler yaz...",
     },
     en: {
         settings: "Settings",
@@ -194,6 +198,10 @@ export const translations = {
         locked: "Locked",
         unlock: "Lock",
         onboardingHint: "Press the + button in the bottom-right to add widgets",
+        notes: "Sticky Notes",
+        addNote: "Add Note",
+        noNotes: "No notes yet",
+        notePlaceholder: "Type something...",
     },
     ru: {
         settings: "Настройки",
@@ -291,6 +299,10 @@ export const translations = {
         locked: "Заблокировано",
         unlock: "Заблокировать",
         onboardingHint: "Нажмите кнопку + в правом нижнем углу, чтобы добавить виджеты",
+        notes: "Заметки",
+        addNote: "Добавить заметку",
+        noNotes: "Заметок пока нет",
+        notePlaceholder: "Напишите что-нибудь...",
     },
     de: {
         settings: "Einstellungen",
@@ -388,6 +400,10 @@ export const translations = {
         locked: "Gesperrt",
         unlock: "Sperren",
         onboardingHint: "Drücken Sie die +-Taste unten rechts, um Widgets hinzuzufügen",
+        notes: "Notizen",
+        addNote: "Notiz hinzufügen",
+        noNotes: "Noch keine Notizen",
+        notePlaceholder: "Schreibe etwas...",
     },
 };
 

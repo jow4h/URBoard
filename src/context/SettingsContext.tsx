@@ -15,7 +15,6 @@ export type SearchEngine = "google" | "brave" | "duckduckgo";
 interface Settings {
     accentColor: string;
     weatherCity: string;
-    weatherApiKey: string;
     weatherMinimalMode: boolean;
     spotifyClientId: string;
     spotifyClientSecret: string;
@@ -45,7 +44,6 @@ const defaultLinks: ShortcutLink[] = [];
 const defaultSettings: Settings = {
     accentColor: "#ff0033",
     weatherCity: "",
-    weatherApiKey: "",
     weatherMinimalMode: false,
     spotifyClientId: "",
     spotifyClientSecret: "",
