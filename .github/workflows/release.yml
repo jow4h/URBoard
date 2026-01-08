@@ -1,0 +1,40 @@
+name: Create Extension Release
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    tags:
+      - 'v*' # Trigger on version tags
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Zip extension folder
+        run: |
+          cd extension
+          zip -r ../urboard-extension.zip .
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: urboard-extension.zip
+          tag_name: latest
+          name: Latest Extension Build
+          body: |
+            Automatic build of the URBoard Chrome Extension.
+            
+            Install instructions:
+            1. Download `urboard-extension.zip`
+            2. Extract to a folder
+            3. Load in Chrome (Developer Mode)
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
