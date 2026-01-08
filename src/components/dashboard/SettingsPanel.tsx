@@ -50,7 +50,7 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 z-[70] h-full w-full max-w-md border-l border-white/10 bg-black/80 backdrop-blur-2xl flex flex-col"
+                        className="fixed right-0 top-0 z-[70] h-full w-full max-w-3xl border-l border-white/10 bg-black/80 backdrop-blur-2xl flex flex-col"
                     >
                         <div className="p-8 border-b border-white/5">
                             <div className="flex items-center justify-between">
@@ -84,6 +84,33 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                         )}
 
                         <div className="flex-1 overflow-y-auto p-8 space-y-10 custom-scrollbar">
+                            {/* Language Settings */}
+                            <section className="space-y-4">
+                                <div className="flex items-center gap-2 text-accent">
+                                    <Globe size={18} />
+                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t("language")}</h3>
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {languages.map((lang) => (
+                                        <button
+                                            key={lang.value}
+                                            onClick={() => updateSettings({ language: lang.value })}
+                                            className={`flex items-center justify-between p-3 rounded-xl border transition-all ${settings.language === lang.value
+                                                ? "border-accent bg-accent/10"
+                                                : "border-white/5 bg-white/5 hover:border-white/20"
+                                                }`}
+                                        >
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">{lang.name}</span>
+                                            {settings.language === lang.value && (
+                                                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-glow" />
+                                            )}
+                                        </button>
+                                    ))}
+                                </div>
+                            </section>
+
+                            <div className="h-px bg-white/5" />
+
                             {/* Theme Settings */}
                             <section className="space-y-4">
                                 <div className="flex items-center gap-2 text-accent">
@@ -91,12 +118,12 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                                     <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t("appearance")}</h3>
                                 </div>
                                 <div className="space-y-4">
-                                    <div className="grid grid-cols-5 gap-2">
+                                    <div className="flex flex-wrap gap-3">
                                         {colors.map((color) => (
                                             <button
                                                 key={color.value}
                                                 onClick={() => updateSettings({ accentColor: color.value })}
-                                                className={`aspect-square rounded-full border-2 transition-all flex items-center justify-center ${settings.accentColor === color.value
+                                                className={`w-12 h-12 rounded-full border-2 transition-all flex items-center justify-center ${settings.accentColor === color.value
                                                     ? "border-white scale-110 shadow-[0_0_15px_rgba(255,255,255,0.3)]"
                                                     : "border-transparent hover:scale-110"
                                                     }`}
@@ -137,33 +164,6 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                                 </div>
                             </section>
 
-                            <div className="h-px bg-white/5" />
-
-                            {/* Language Settings */}
-                            <section className="space-y-4">
-                                <div className="flex items-center gap-2 text-accent">
-                                    <Globe size={18} />
-                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t("language")}</h3>
-                                </div>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {languages.map((lang) => (
-                                        <button
-                                            key={lang.value}
-                                            onClick={() => updateSettings({ language: lang.value })}
-                                            className={`flex items-center justify-between p-3 rounded-xl border transition-all ${settings.language === lang.value
-                                                ? "border-accent bg-accent/10"
-                                                : "border-white/5 bg-white/5 hover:border-white/20"
-                                                }`}
-                                        >
-                                            <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">{lang.name}</span>
-                                            {settings.language === lang.value && (
-                                                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-glow" />
-                                            )}
-                                        </button>
-                                    ))}
-                                </div>
-                            </section>
-
                             {isExtension && (
                                 <>
                                     <div className="h-px bg-white/5" />
@@ -188,7 +188,32 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                                                     <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">{wp.name}</span>
                                                 </button>
                                             ))}
+                                            {/* Custom Wallpaper Option */}
+                                            <button
+                                                onClick={() => updateSettings({ wallpaper: "custom" })}
+                                                className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${settings.wallpaper === "custom"
+                                                    ? "border-accent bg-accent/10"
+                                                    : "border-white/5 bg-white/5 hover:border-white/20"
+                                                    }`}
+                                            >
+                                                <span className="text-xl">🔗</span>
+                                                <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">{t("wallpaperCustom")}</span>
+                                            </button>
                                         </div>
+
+                                        {/* Custom URL Input */}
+                                        {settings.wallpaper === "custom" && (
+                                            <div className="animate-in fade-in slide-in-from-top-2 duration-300 space-y-2 pt-2">
+                                                <label className="text-[10px] text-white/40 uppercase font-bold pl-1">{t("customUrl")}</label>
+                                                <input
+                                                    type="text"
+                                                    value={settings.customWallpaperUrl || ""}
+                                                    onChange={(e) => updateSettings({ customWallpaperUrl: e.target.value })}
+                                                    placeholder="https://example.com/image.jpg"
+                                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-accent/50 transition-colors text-white placeholder:text-white/20"
+                                                />
+                                            </div>
+                                        )}
                                     </section>
 
                                     <div className="h-px bg-white/5" />

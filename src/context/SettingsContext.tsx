@@ -26,7 +26,9 @@ interface Settings {
     isLocked: boolean;
     linksViewMode: "list" | "grid";
     language: Language;
-    wallpaper: "default" | "scifi" | "nature" | "abstract";
+    customWallpaperUrl: string;
+    wallpaper: "default" | "scifi" | "nature" | "abstract" | "custom";
+    clockStyle: "modern" | "retro" | "neon" | "glitch";
     layouts?: Record<string, any[]>;
 }
 
@@ -43,6 +45,7 @@ const defaultLinks: ShortcutLink[] = [];
 
 const defaultSettings: Settings = {
     accentColor: "#ff0033",
+    customWallpaperUrl: "",
     weatherCity: "",
     weatherMinimalMode: false,
     spotifyClientId: "",
@@ -51,46 +54,52 @@ const defaultSettings: Settings = {
     userLinks: defaultLinks,
     searchEngine: "google",
     isOnboarded: false,
-    activeWidgets: [],
+    activeWidgets: ["clock"],
     isLocked: false,
     linksViewMode: "list",
     language: "tr", // Will be auto-detected in useEffect
     wallpaper: "default",
+    clockStyle: "modern",
     layouts: {
         lg: [
-            { i: "weather", x: 0, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
-            { i: "links", x: 4, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
-            { i: "spotify", x: 8, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
-            { i: "todo", x: 0, y: 4, w: 4, h: 6, minW: 2, minH: 2 },
-            { i: "pomodoro", x: 4, y: 4, w: 4, h: 6, minW: 2, minH: 2 },
+            { i: "clock", x: 0, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
+            { i: "weather", x: 4, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
+            { i: "links", x: 8, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
+            { i: "spotify", x: 0, y: 4, w: 4, h: 4, minW: 2, minH: 2 },
+            { i: "todo", x: 4, y: 4, w: 4, h: 6, minW: 2, minH: 2 },
+            { i: "pomodoro", x: 8, y: 4, w: 4, h: 6, minW: 2, minH: 2 },
         ],
         md: [
-            { i: "weather", x: 0, y: 0, w: 5, h: 4, minW: 2, minH: 2 },
-            { i: "links", x: 5, y: 0, w: 5, h: 4, minW: 2, minH: 2 },
-            { i: "spotify", x: 0, y: 4, w: 5, h: 4, minW: 2, minH: 2 },
-            { i: "todo", x: 5, y: 4, w: 5, h: 6, minW: 2, minH: 2 },
-            { i: "pomodoro", x: 0, y: 8, w: 5, h: 6, minW: 2, minH: 2 },
+            { i: "clock", x: 0, y: 0, w: 5, h: 4, minW: 2, minH: 2 },
+            { i: "weather", x: 5, y: 0, w: 5, h: 4, minW: 2, minH: 2 },
+            { i: "links", x: 0, y: 4, w: 5, h: 4, minW: 2, minH: 2 },
+            { i: "spotify", x: 5, y: 4, w: 5, h: 4, minW: 2, minH: 2 },
+            { i: "todo", x: 0, y: 8, w: 5, h: 6, minW: 2, minH: 2 },
+            { i: "pomodoro", x: 5, y: 8, w: 5, h: 6, minW: 2, minH: 2 },
         ],
         sm: [
-            { i: "weather", x: 0, y: 0, w: 3, h: 4, minW: 2, minH: 2 },
-            { i: "links", x: 3, y: 0, w: 3, h: 4, minW: 2, minH: 2 },
-            { i: "spotify", x: 0, y: 4, w: 3, h: 4, minW: 2, minH: 2 },
-            { i: "todo", x: 3, y: 4, w: 3, h: 6, minW: 2, minH: 2 },
-            { i: "pomodoro", x: 0, y: 8, w: 3, h: 6, minW: 2, minH: 2 },
+            { i: "clock", x: 0, y: 0, w: 6, h: 4, minW: 2, minH: 2 },
+            { i: "weather", x: 0, y: 4, w: 3, h: 4, minW: 2, minH: 2 },
+            { i: "links", x: 3, y: 4, w: 3, h: 4, minW: 2, minH: 2 },
+            { i: "spotify", x: 0, y: 8, w: 3, h: 4, minW: 2, minH: 2 },
+            { i: "todo", x: 3, y: 8, w: 3, h: 6, minW: 2, minH: 2 },
+            { i: "pomodoro", x: 0, y: 12, w: 3, h: 6, minW: 2, minH: 2 },
         ],
         xs: [
-            { i: "weather", x: 0, y: 0, w: 2, h: 4, minW: 2, minH: 2 },
-            { i: "links", x: 2, y: 0, w: 2, h: 4, minW: 2, minH: 2 },
-            { i: "spotify", x: 0, y: 4, w: 2, h: 4, minW: 2, minH: 2 },
-            { i: "todo", x: 2, y: 4, w: 2, h: 6, minW: 2, minH: 2 },
-            { i: "pomodoro", x: 0, y: 10, w: 2, h: 6, minW: 2, minH: 2 },
-        ],
-        xxs: [
-            { i: "weather", x: 0, y: 0, w: 2, h: 4, minW: 2, minH: 2 },
-            { i: "links", x: 0, y: 4, w: 2, h: 4, minW: 2, minH: 2 },
+            { i: "clock", x: 0, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
+            { i: "weather", x: 0, y: 4, w: 2, h: 4, minW: 2, minH: 2 },
+            { i: "links", x: 2, y: 4, w: 2, h: 4, minW: 2, minH: 2 },
             { i: "spotify", x: 0, y: 8, w: 2, h: 4, minW: 2, minH: 2 },
             { i: "todo", x: 0, y: 12, w: 2, h: 6, minW: 2, minH: 2 },
             { i: "pomodoro", x: 0, y: 18, w: 2, h: 6, minW: 2, minH: 2 },
+        ],
+        xxs: [
+            { i: "clock", x: 0, y: 0, w: 2, h: 4, minW: 2, minH: 2 },
+            { i: "weather", x: 0, y: 4, w: 2, h: 4, minW: 2, minH: 2 },
+            { i: "links", x: 0, y: 8, w: 2, h: 4, minW: 2, minH: 2 },
+            { i: "spotify", x: 0, y: 12, w: 2, h: 4, minW: 2, minH: 2 },
+            { i: "todo", x: 0, y: 16, w: 2, h: 6, minW: 2, minH: 2 },
+            { i: "pomodoro", x: 0, y: 22, w: 2, h: 6, minW: 2, minH: 2 },
         ],
     },
 };
@@ -208,7 +217,7 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
 
         // Calculate contrast color (YIQ)
         const yiq = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-        const contrastColor = yiq >= 128 ? "rgba(0, 0, 0, 0.9)" : "#ffffff";
+        const contrastColor = yiq >= 128 ? "#000000" : "#ffffff";
         document.documentElement.style.setProperty("--accent-contrast", contrastColor);
     }, [settings.accentColor]);
 

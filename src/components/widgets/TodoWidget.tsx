@@ -69,7 +69,7 @@ export default function TodoWidget() {
                     />
                     <button
                         onClick={addTodo}
-                        className="bg-accent/20 hover:bg-accent text-accent hover:text-white rounded-xl p-2 transition-all border border-accent/20"
+                        className="bg-accent/20 hover:bg-accent text-accent hover:text-[var(--accent-contrast)] rounded-xl p-2 transition-all border border-accent/20"
                     >
                         <Plus size={18} />
                     </button>

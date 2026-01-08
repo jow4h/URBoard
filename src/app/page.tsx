@@ -4,7 +4,6 @@ import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import DashboardGrid from "@/components/dashboard/DashboardGrid";
 import LandingPage from "@/components/layout/LandingPage";
-import WelcomeModal from "@/components/dashboard/WelcomeModal";
 import { useSettings } from "@/context/SettingsContext";
 
 import { useSearchParams } from "next/navigation";
@@ -41,7 +40,7 @@ function HomeContent() {
         <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(var(--accent-rgb),0.15),transparent_70%)]" />
         <div className="fixed inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
         <div className="relative z-10 h-full">
-          <Navbar showClock={false} />
+          <Navbar showActions={false} />
           <LandingPage
             onGetStarted={() => setInternalShowDashboard(true)}
           />
@@ -51,7 +50,9 @@ function HomeContent() {
   }
 
   // Dashboard View
-  const wallpaperUrl = WALLPAPER_MAP[settings.wallpaper as keyof typeof WALLPAPER_MAP];
+  const wallpaperUrl = settings.wallpaper === "custom"
+    ? (settings.customWallpaperUrl || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000")
+    : WALLPAPER_MAP[settings.wallpaper as keyof typeof WALLPAPER_MAP];
 
   return (
     <main className="h-screen relative overflow-hidden bg-background">
@@ -78,7 +79,6 @@ function HomeContent() {
         <div className="flex-1 overflow-y-auto custom-scrollbar pt-24 pb-12 px-6">
           <DashboardGrid />
         </div>
-        <WelcomeModal />
       </div>
     </main>
   );

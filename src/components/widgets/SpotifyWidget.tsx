@@ -58,7 +58,7 @@ function SpotifySettings({ initialValues, onSave, t }: {
                 </div>
                 <button
                     onClick={() => onSave(inputs)}
-                    className="w-full py-2 bg-accent text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all mt-4"
+                    className="w-full py-2 bg-accent text-[var(--accent-contrast)] rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all mt-4"
                 >
                     <Check size={14} /> {t("save")}
                 </button>

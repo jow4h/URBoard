@@ -45,13 +45,13 @@ export default function PomodoroWidget() {
                 <div className="flex bg-white/5 p-1 rounded-2xl border border-white/5">
                     <button
                         onClick={() => { setMode("work"); setTimeLeft(25 * 60); setIsActive(false); }}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${mode === 'work' ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-white/40 hover:text-white'}`}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${mode === 'work' ? 'bg-accent text-[var(--accent-contrast)] shadow-lg shadow-accent/20' : 'text-white/40 hover:text-white'}`}
                     >
                         <Brain size={14} /> {t("focus")}
                     </button>
                     <button
                         onClick={() => { setMode("break"); setTimeLeft(5 * 60); setIsActive(false); }}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${mode === 'break' ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-white/40 hover:text-white'}`}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${mode === 'break' ? 'bg-accent text-[var(--accent-contrast)] shadow-lg shadow-accent/20' : 'text-white/40 hover:text-white'}`}
                     >
                         <Coffee size={14} /> {t("break")}
                     </button>
@@ -67,7 +67,7 @@ export default function PomodoroWidget() {
                 <div className="flex items-center gap-3">
                     <button
                         onClick={toggleTimer}
-                        className={`p-4 rounded-full transition-all ${isActive ? 'bg-white/5 text-white/40 hover:text-white' : 'bg-accent text-white shadow-lg shadow-accent/30 scale-110'}`}
+                        className={`p-4 rounded-full transition-all ${isActive ? 'bg-white/5 text-white/40 hover:text-white' : 'bg-accent text-[var(--accent-contrast)] shadow-lg shadow-accent/30 scale-110'}`}
                     >
                         {isActive ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
                     </button>

@@ -74,7 +74,7 @@ export default function NotesWidget() {
                     />
                     <button
                         onClick={addNote}
-                        className="w-full bg-accent/20 hover:bg-accent text-accent hover:text-white rounded-xl py-2 flex items-center justify-center gap-2 transition-all border border-accent/20 text-xs font-bold uppercase tracking-wider"
+                        className="w-full bg-accent/20 hover:bg-accent text-accent hover:text-[var(--accent-contrast)] rounded-xl py-2 flex items-center justify-center gap-2 transition-all border border-accent/20 text-xs font-bold uppercase tracking-wider"
                     >
                         <Plus size={16} /> {t("addNote")}
                     </button>
