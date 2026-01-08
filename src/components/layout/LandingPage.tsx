@@ -88,6 +88,8 @@ export default function LandingPage({ onGetStarted, onDemo }: LandingPageProps) 
                     >
                         <a
                             href="https://github.com/jow4h/URBoard/releases/download/latest/urboard-extension.zip"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="w-full sm:w-1/2 min-h-[90px] px-6 py-5 bg-accent text-[var(--accent-contrast)] font-black rounded-[1.5rem] flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-accent/20 group"
                         >
                             <div className="flex items-center gap-3">
