@@ -87,15 +87,14 @@ export default function LandingPage({ onGetStarted, onDemo }: LandingPageProps) 
                         className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-xl mx-auto"
                     >
                         <a
-                            href="/urboard-extension.zip"
-                            download
+                            href="https://github.com/jow4h/URBoard/releases/download/latest/urboard-extension.zip"
                             className="w-full sm:w-1/2 min-h-[90px] px-6 py-5 bg-accent text-[var(--accent-contrast)] font-black rounded-[1.5rem] flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-accent/20 group"
                         >
                             <div className="flex items-center gap-3">
-                                <span className="text-lg tracking-tighter uppercase">{t("ctaDownload")}</span>
+                                <span className="text-xl tracking-tight uppercase">{t("ctaDownload")}</span>
                                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                             </div>
-                            <span className="text-[10px] uppercase tracking-[0.2em] opacity-60 mt-1.5 font-bold text-center leading-none">{t("ctaDownloadDesc")}</span>
+                            <span className="text-[11px] uppercase tracking-[0.1em] opacity-80 mt-1.5 font-bold text-center leading-none">{t("ctaDownloadDesc")}</span>
                         </a>
 
                         <button
@@ -103,10 +102,10 @@ export default function LandingPage({ onGetStarted, onDemo }: LandingPageProps) 
                             className="w-full sm:w-1/2 min-h-[90px] px-6 py-5 bg-white text-black font-black rounded-[1.5rem] flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl group border border-white/10"
                         >
                             <div className="flex items-center gap-3">
-                                <span className="text-lg tracking-tighter uppercase">{t("ctaDemo")}</span>
+                                <span className="text-xl tracking-tight uppercase">{t("ctaDemo")}</span>
                                 <MousePointer2 size={18} className="group-hover:rotate-12 transition-transform" />
                             </div>
-                            <span className="text-[10px] uppercase tracking-[0.2em] opacity-60 mt-1.5 font-bold text-center leading-none">{t("ctaDemoDesc")}</span>
+                            <span className="text-[11px] uppercase tracking-[0.1em] opacity-80 mt-1.5 font-bold text-center leading-none">{t("ctaDemoDesc")}</span>
                         </button>
                     </motion.div>
                 </div>
