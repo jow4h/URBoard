@@ -81,10 +81,28 @@ export default function SearchWidget() {
         return () => clearTimeout(timeoutId);
     }, [query, settings.searchEngine, isExtension]);
 
+    const isValidUrl = (str: string) => {
+        // Pattern for common domains or full URLs
+        // e.g. vercel.app, google.com, http://..., https://...
+        const pattern = new RegExp(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/);
+        return pattern.test(str.toLowerCase());
+    };
+
     const handleSearch = (e?: React.FormEvent, searchQuery: string = query) => {
         e?.preventDefault();
-        if (!searchQuery.trim()) return;
-        window.open(`${currentEngine.url}${encodeURIComponent(searchQuery)}`, "_blank");
+        const trimmedQuery = searchQuery.trim();
+        if (!trimmedQuery) return;
+
+        if (isValidUrl(trimmedQuery)) {
+            let finalUrl = trimmedQuery;
+            if (!/^https?:\/\//i.test(finalUrl)) {
+                finalUrl = `https://${finalUrl}`;
+            }
+            window.open(finalUrl, "_blank");
+        } else {
+            window.open(`${currentEngine.url}${encodeURIComponent(trimmedQuery)}`, "_blank");
+        }
+
         setQuery("");
         setSuggestions([]);
         setShowSuggestions(false);
