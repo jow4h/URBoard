@@ -1,2 +1,2 @@
-// Use JS fallback for redirect
-window.location.href = "https://ur-board.vercel.app?source=extension";
+// JS logic for the new tab iframe if needed
+console.log("URBoard Extension Loaded");
