@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "react-grid-layout/css/styles.css";
+@import "react-resizable/css/styles.css";
+
+@theme {
+  --color-background: #050505;
+  --color-foreground: #ffffff;
+
+  --color-accent: #ff0033;
+  --color-accent-foreground: #ffffff;
+
+  --color-card: rgba(10, 10, 10, 0.7);
+  --color-card-foreground: #ffffff;
+
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      opacity: 0.5;
+      filter: blur(8px);
+    }
+
+    50% {
+      opacity: 0.8;
+      filter: blur(12px);
+    }
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+:root {
+  --background: #050505;
+  --foreground: #ffffff;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow: hidden !important;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--accent-rgb), 0.3);
+}
+
+.glass {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+.glass-red {
+  background: rgba(var(--accent-rgb), 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+.neon-glow {
+  box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.4);
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* react-grid-layout styles */
+.react-grid-placeholder {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-radius: 12px !important;
+  opacity: 0.5 !important;
+}
+
+.react-resizable-handle {
+  background: none !important;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+  z-index: 60;
+}
+
+.react-resizable-handle::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid rgba(var(--accent-rgb), 0.4);
+  border-bottom: 2px solid rgba(var(--accent-rgb), 0.4);
+  transition: all 0.3s ease;
+}
+
+.react-resizable-handle:hover::after {
+  border-right: 2px solid rgb(var(--accent-rgb));
+  border-bottom: 2px solid rgb(var(--accent-rgb));
+  filter: drop-shadow(0 0 5px rgb(var(--accent-rgb)));
+}

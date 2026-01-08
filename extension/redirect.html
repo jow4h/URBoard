@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>URBoard</title>
+    <meta http-equiv="refresh" content="0; url=https://ur-board.vercel.app?source=extension">
+    <style>
+        body {
+            background: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            font-family: sans-serif;
+        }
+
+        .loader {
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid #ff3e3e;
+            /* accent color */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <script>
+        // Use JS fallback for redirect
+        window.location.href = "https://ur-board.vercel.app?source=extension";
+    </script>
+</body>
+
+</html>
