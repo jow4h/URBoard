@@ -54,7 +54,7 @@ const defaultSettings: Settings = {
     userLinks: defaultLinks,
     searchEngine: "google",
     isOnboarded: false,
-    activeWidgets: ["clock"],
+    activeWidgets: [],
     isLocked: false,
     linksViewMode: "list",
     language: "tr", // Will be auto-detected in useEffect

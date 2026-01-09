@@ -12,6 +12,7 @@ import NotesWidget from "@/components/widgets/NotesWidget";
 import ClockWidget from "@/components/widgets/ClockWidget";
 import { X as CloseIcon, MapPin, Music, CheckSquare, Timer, Link as LinkIcon, Settings as SettingsIcon, StickyNote, Clock as ClockIcon, Plus as PlusIcon } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
+import { motion } from "framer-motion";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -276,18 +277,32 @@ export default function DashboardGrid() {
 
             {/* Welcome / Onboarding Hint - Only visible when no widgets are active */}
             {settings.activeWidgets.length === 0 && (
-                <div className="w-full flex items-center justify-center mt-12 z-0">
-                    <div className="bg-black/40 backdrop-blur-xl border border-white/10 p-8 rounded-3xl flex flex-col items-center text-center max-w-md shadow-2xl">
-                        <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-6">
-                            <PlusIcon className="w-8 h-8 text-accent" />
+                <div className="flex-1 min-h-[60vh] flex items-center justify-center p-6">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        className="bg-black/40 backdrop-blur-xl border border-white/10 p-10 rounded-[2.5rem] flex flex-col items-center text-center max-w-lg shadow-2xl relative overflow-hidden group"
+                    >
+                        <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        <div className="w-20 h-20 rounded-3xl bg-accent/20 flex items-center justify-center mb-8 relative">
+                            <div className="absolute inset-0 bg-accent/20 blur-xl rounded-full animate-pulse" />
+                            <PlusIcon className="w-10 h-10 text-accent relative z-10" />
                         </div>
-                        <h2 className="text-3xl font-black italic tracking-tighter mb-3 uppercase">
+
+                        <h2 className="text-4xl font-black italic tracking-tighter mb-4 uppercase">
                             {t("welcome")}
                         </h2>
-                        <p className="text-white/60 text-lg leading-relaxed">
+
+                        <p className="text-white/60 text-xl leading-relaxed mb-8">
                             {t("onboardingHint")}
                         </p>
-                    </div>
+
+                        <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-white/40">
+                            <SettingsIcon size={14} />
+                            {t("edit")} butonuna tıkla ve başla
+                        </div>
+                    </motion.div>
                 </div>
             )}
         </div>

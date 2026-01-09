@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import DashboardGrid from "@/components/dashboard/DashboardGrid";
 import LandingPage from "@/components/layout/LandingPage";
+import Onboarding from "@/components/layout/Onboarding";
 import { useSettings } from "@/context/SettingsContext";
 
 import { useSearchParams } from "next/navigation";
@@ -47,6 +48,11 @@ function HomeContent() {
         </div>
       </main>
     );
+  }
+
+  // Dashboard View
+  if (showDashboard && !settings.isOnboarded) {
+    return <Onboarding onComplete={() => setInternalShowDashboard(true)} />;
   }
 
   // Dashboard View
