@@ -202,7 +202,7 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                 <div className="absolute bottom-0 inset-x-0 p-4 pointer-events-none flex justify-center">
                     <button
                         onClick={() => setIsAdding(true)}
-                        className="pointer-events-auto shadow-lg bg-white/10 hover:bg-accent hover:text-white backdrop-blur-md border border-white/10 text-white/60 rounded-full p-3 transition-all transform hover:scale-110 active:scale-95"
+                        className="pointer-events-auto shadow-lg bg-white/10 hover:bg-accent hover:text-[var(--accent-contrast)] backdrop-blur-md border border-white/10 text-white/60 rounded-full p-3 transition-all transform hover:scale-110 active:scale-95"
                     >
                         <Plus size={20} />
                     </button>

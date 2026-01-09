@@ -109,13 +109,13 @@ export default function DashboardGrid() {
                                 <div className="absolute top-3 right-3 z-[60] flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={() => setActiveSettingsWidget(activeSettingsWidget === "clock" ? null : "clock")}
-                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "clock" ? "bg-accent text-white" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
+                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "clock" ? "bg-accent text-[var(--accent-contrast)]" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
                                     >
                                         <SettingsIcon size={14} />
                                     </button>
                                     <button
                                         onClick={() => toggleWidget("clock")}
-                                        className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                                        className="p-1.5 bg-black/40 hover:bg-accent hover:text-[var(--accent-contrast)] text-white/60 rounded-lg backdrop-blur-md transition-all"
                                     >
                                         <CloseIcon size={14} />
                                     </button>
@@ -130,19 +130,19 @@ export default function DashboardGrid() {
                 )}
 
                 {settings.activeWidgets.includes("weather") && (
-                    <div key="weather" data-grid={{ x: 0, y: 0, w: 4, h: 4, minW: 2, minH: 2 }} className="cursor-default group relative">
+                    <div key="weather" data-grid={{ x: 4, y: 0, w: 4, h: 4, minW: 2, minH: 2 }} className="cursor-default group relative">
                         {!settings.isLocked && (
                             <>
                                 <div className="absolute top-3 right-3 z-[60] flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={() => setActiveSettingsWidget(activeSettingsWidget === "weather" ? null : "weather")}
-                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "weather" ? "bg-accent text-white" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
+                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "weather" ? "bg-accent text-[var(--accent-contrast)]" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
                                     >
                                         <SettingsIcon size={14} />
                                     </button>
                                     <button
                                         onClick={() => toggleWidget("weather")}
-                                        className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                                        className="p-1.5 bg-black/40 hover:bg-accent hover:text-[var(--accent-contrast)] text-white/60 rounded-lg backdrop-blur-md transition-all"
                                     >
                                         <CloseIcon size={14} />
                                     </button>
@@ -157,19 +157,19 @@ export default function DashboardGrid() {
                 )}
 
                 {settings.activeWidgets.includes("links") && (
-                    <div key="links" data-grid={{ x: 4, y: 0, w: 4, h: 4, minW: 2, minH: 2 }} className="cursor-default group relative">
+                    <div key="links" data-grid={{ x: 8, y: 0, w: 4, h: 4, minW: 2, minH: 2 }} className="cursor-default group relative">
                         {!settings.isLocked && (
                             <>
                                 <div className="absolute top-3 right-3 z-[60] flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={() => setActiveSettingsWidget(activeSettingsWidget === "links" ? null : "links")}
-                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "links" ? "bg-accent text-white" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
+                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "links" ? "bg-accent text-[var(--accent-contrast)]" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
                                     >
                                         <SettingsIcon size={14} />
                                     </button>
                                     <button
                                         onClick={() => toggleWidget("links")}
-                                        className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                                        className="p-1.5 bg-black/40 hover:bg-accent hover:text-[var(--accent-contrast)] text-white/60 rounded-lg backdrop-blur-md transition-all"
                                     >
                                         <CloseIcon size={14} />
                                     </button>
@@ -184,19 +184,19 @@ export default function DashboardGrid() {
                 )}
 
                 {settings.activeWidgets.includes("spotify") && (
-                    <div key="spotify" data-grid={{ x: 8, y: 0, w: 4, h: 4, minW: 2, minH: 2 }} className="cursor-default group relative">
+                    <div key="spotify" data-grid={{ x: 0, y: 4, w: 4, h: 4, minW: 2, minH: 2 }} className="cursor-default group relative">
                         {!settings.isLocked && (
                             <>
                                 <div className="absolute top-3 right-3 z-[60] flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={() => setActiveSettingsWidget(activeSettingsWidget === "spotify" ? null : "spotify")}
-                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "spotify" ? "bg-accent text-white" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
+                                        className={`p-1.5 rounded-lg backdrop-blur-md transition-all ${activeSettingsWidget === "spotify" ? "bg-accent text-[var(--accent-contrast)]" : "bg-black/40 text-white/60 hover:bg-white/10 hover:text-white"}`}
                                     >
                                         <SettingsIcon size={14} />
                                     </button>
                                     <button
                                         onClick={() => toggleWidget("spotify")}
-                                        className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                                        className="p-1.5 bg-black/40 hover:bg-accent hover:text-[var(--accent-contrast)] text-white/60 rounded-lg backdrop-blur-md transition-all"
                                     >
                                         <CloseIcon size={14} />
                                     </button>
@@ -211,13 +211,13 @@ export default function DashboardGrid() {
                 )}
 
                 {settings.activeWidgets.includes("todo") && (
-                    <div key="todo" data-grid={{ x: 0, y: 4, w: 4, h: 6, minW: 2, minH: 2 }} className="cursor-default group relative">
+                    <div key="todo" data-grid={{ x: 4, y: 4, w: 4, h: 6, minW: 2, minH: 2 }} className="cursor-default group relative">
                         {!settings.isLocked && (
                             <>
                                 <div className="absolute top-3 right-3 z-[60] opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={() => toggleWidget("todo")}
-                                        className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                                        className="p-1.5 bg-black/40 hover:bg-accent hover:text-[var(--accent-contrast)] text-white/60 rounded-lg backdrop-blur-md transition-all"
                                     >
                                         <CloseIcon size={14} />
                                     </button>
@@ -232,13 +232,13 @@ export default function DashboardGrid() {
                 )}
 
                 {settings.activeWidgets.includes("pomodoro") && (
-                    <div key="pomodoro" data-grid={{ x: 4, y: 4, w: 4, h: 6, minW: 2, minH: 2 }} className="cursor-default group relative">
+                    <div key="pomodoro" data-grid={{ x: 8, y: 4, w: 4, h: 6, minW: 2, minH: 2 }} className="cursor-default group relative">
                         {!settings.isLocked && (
                             <>
                                 <div className="absolute top-3 right-3 z-[60] opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={() => toggleWidget("pomodoro")}
-                                        className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                                        className="p-1.5 bg-black/40 hover:bg-accent hover:text-[var(--accent-contrast)] text-white/60 rounded-lg backdrop-blur-md transition-all"
                                     >
                                         <CloseIcon size={14} />
                                     </button>
@@ -253,13 +253,13 @@ export default function DashboardGrid() {
                 )}
 
                 {settings.activeWidgets.includes("notes") && (
-                    <div key="notes" data-grid={{ x: 8, y: 4, w: 4, h: 6, minW: 2, minH: 2 }} className="cursor-default group relative">
+                    <div key="notes" data-grid={{ x: 0, y: 8, w: 4, h: 6, minW: 2, minH: 2 }} className="cursor-default group relative">
                         {!settings.isLocked && (
                             <>
                                 <div className="absolute top-3 right-3 z-[60] opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button
                                         onClick={() => toggleWidget("notes")}
-                                        className="p-1.5 bg-black/40 hover:bg-accent/80 text-white/60 hover:text-white rounded-lg backdrop-blur-md transition-all"
+                                        className="p-1.5 bg-black/40 hover:bg-accent hover:text-[var(--accent-contrast)] text-white/60 rounded-lg backdrop-blur-md transition-all"
                                     >
                                         <CloseIcon size={14} />
                                     </button>

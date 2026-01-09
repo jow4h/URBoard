@@ -68,6 +68,7 @@ const defaultSettings: Settings = {
             { i: "spotify", x: 0, y: 4, w: 4, h: 4, minW: 2, minH: 2 },
             { i: "todo", x: 4, y: 4, w: 4, h: 6, minW: 2, minH: 2 },
             { i: "pomodoro", x: 8, y: 4, w: 4, h: 6, minW: 2, minH: 2 },
+            { i: "notes", x: 0, y: 8, w: 4, h: 6, minW: 2, minH: 2 },
         ],
         md: [
             { i: "clock", x: 0, y: 0, w: 5, h: 4, minW: 2, minH: 2 },
@@ -76,6 +77,7 @@ const defaultSettings: Settings = {
             { i: "spotify", x: 5, y: 4, w: 5, h: 4, minW: 2, minH: 2 },
             { i: "todo", x: 0, y: 8, w: 5, h: 6, minW: 2, minH: 2 },
             { i: "pomodoro", x: 5, y: 8, w: 5, h: 6, minW: 2, minH: 2 },
+            { i: "notes", x: 0, y: 14, w: 5, h: 6, minW: 2, minH: 2 },
         ],
         sm: [
             { i: "clock", x: 0, y: 0, w: 6, h: 4, minW: 2, minH: 2 },
@@ -84,6 +86,7 @@ const defaultSettings: Settings = {
             { i: "spotify", x: 0, y: 8, w: 3, h: 4, minW: 2, minH: 2 },
             { i: "todo", x: 3, y: 8, w: 3, h: 6, minW: 2, minH: 2 },
             { i: "pomodoro", x: 0, y: 12, w: 3, h: 6, minW: 2, minH: 2 },
+            { i: "notes", x: 3, y: 14, w: 3, h: 6, minW: 2, minH: 2 },
         ],
         xs: [
             { i: "clock", x: 0, y: 0, w: 4, h: 4, minW: 2, minH: 2 },
@@ -92,6 +95,7 @@ const defaultSettings: Settings = {
             { i: "spotify", x: 0, y: 8, w: 2, h: 4, minW: 2, minH: 2 },
             { i: "todo", x: 0, y: 12, w: 2, h: 6, minW: 2, minH: 2 },
             { i: "pomodoro", x: 0, y: 18, w: 2, h: 6, minW: 2, minH: 2 },
+            { i: "notes", x: 0, y: 24, w: 2, h: 6, minW: 2, minH: 2 },
         ],
         xxs: [
             { i: "clock", x: 0, y: 0, w: 2, h: 4, minW: 2, minH: 2 },
@@ -100,6 +104,7 @@ const defaultSettings: Settings = {
             { i: "spotify", x: 0, y: 12, w: 2, h: 4, minW: 2, minH: 2 },
             { i: "todo", x: 0, y: 16, w: 2, h: 6, minW: 2, minH: 2 },
             { i: "pomodoro", x: 0, y: 22, w: 2, h: 6, minW: 2, minH: 2 },
+            { i: "notes", x: 0, y: 28, w: 2, h: 6, minW: 2, minH: 2 },
         ],
     },
 };
@@ -145,7 +150,37 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
 
             if (saved) {
                 try {
-                    currentSettings = { ...defaultSettings, ...JSON.parse(saved) };
+                    const parsedSaved = JSON.parse(saved);
+                    // Smart Merge Layouts: If a widget is in default but not in saved, add it.
+                    if (parsedSaved.layouts) {
+                        const mergedLayouts: Record<string, any[]> = { ...defaultSettings.layouts };
+                        Object.keys(mergedLayouts).forEach(bp => {
+                            const savedBp = parsedSaved.layouts[bp] || [];
+                            const defaultBp = defaultSettings.layouts?.[bp] || [];
+
+                            // Start with defaults, then overwrite with saved positions for existing widgets
+                            mergedLayouts[bp] = defaultBp.map(defWidget => {
+                                const savedWidget = savedBp.find((sw: any) => sw.i === defWidget.i);
+                                if (savedWidget) {
+                                    // RESET FIX: If a widget was saved with an invalid tiny height (h < 2), restore default height
+                                    if (savedWidget.h < defWidget.minH || savedWidget.h < 2) {
+                                        return { ...savedWidget, h: defWidget.h, minH: defWidget.minH };
+                                    }
+                                    return savedWidget;
+                                }
+                                return defWidget;
+                            });
+
+                            // Also catch any widgets that were in saved but NOT in default (though shouldn't happen)
+                            savedBp.forEach((sw: any) => {
+                                if (!mergedLayouts[bp].find(mw => mw.i === sw.i)) {
+                                    mergedLayouts[bp].push(sw);
+                                }
+                            });
+                        });
+                        parsedSaved.layouts = mergedLayouts;
+                    }
+                    currentSettings = { ...defaultSettings, ...parsedSaved };
                 } catch (e) {
                     console.error("Local settings parse error", e);
                 }
@@ -162,15 +197,16 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
             setSettings(currentSettings);
 
             // Migration: Global Resize Fix for ALL widgets
-            if (currentSettings.layouts?.lg) {
+            if (currentSettings.layouts) {
                 let needsUpdate = false;
                 const newLayouts = { ...currentSettings.layouts };
 
                 Object.keys(newLayouts).forEach(bp => {
                     newLayouts[bp] = newLayouts[bp].map(w => {
-                        if (w.minW > 2 || w.minH > 2) {
+                        // Ensure minW/minH are at least 2
+                        if (w.minW < 2 || w.minH < 2) {
                             needsUpdate = true;
-                            return { ...w, minW: 2, minH: 2 };
+                            return { ...w, minW: Math.max(w.minW, 2), minH: Math.max(w.minH, 2) };
                         }
                         return w;
                     });

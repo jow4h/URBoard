@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Palette, Search, Globe, Image as ImageIcon } from "lucide-react";
+import { X, Palette, Search, Globe, Image as ImageIcon, Check } from "lucide-react";
 import { useSettings, SearchEngine } from "@/context/SettingsContext";
 import { Language } from "@/lib/translations";
 
@@ -96,13 +96,15 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                                             key={lang.value}
                                             onClick={() => updateSettings({ language: lang.value })}
                                             className={`flex items-center justify-between p-3 rounded-xl border transition-all ${settings.language === lang.value
-                                                ? "border-accent bg-accent/10"
+                                                ? "border-accent bg-accent/20 shadow-[0_0_15px_rgba(var(--accent-rgb),0.1)]"
                                                 : "border-white/5 bg-white/5 hover:border-white/20"
                                                 }`}
                                         >
                                             <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">{lang.name}</span>
                                             {settings.language === lang.value && (
-                                                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-glow" />
+                                                <div className="w-4 h-4 rounded-full bg-accent flex items-center justify-center text-[var(--accent-contrast)]">
+                                                    <Check size={10} strokeWidth={4} />
+                                                </div>
                                             )}
                                         </button>
                                     ))}
@@ -130,7 +132,7 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                                                 style={{ backgroundColor: color.value }}
                                                 title={color.name}
                                             >
-                                                {settings.accentColor === color.value && <div className="w-2 h-2 rounded-full bg-black/50" />}
+                                                {settings.accentColor === color.value && <div className="w-2 h-2 rounded-full bg-white mix-blend-difference" />}
                                             </button>
                                         ))}
                                     </div>
@@ -230,13 +232,15 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                                                     key={engine}
                                                     onClick={() => updateSettings({ searchEngine: engine })}
                                                     className={`flex items-center justify-between p-3 rounded-xl border transition-all ${settings.searchEngine === engine
-                                                        ? "border-accent bg-accent/10"
+                                                        ? "border-accent bg-accent/20 shadow-[0_0_15px_rgba(var(--accent-rgb),0.1)]"
                                                         : "border-white/5 bg-white/5 hover:border-white/20"
                                                         }`}
                                                 >
                                                     <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">{engine}</span>
                                                     {settings.searchEngine === engine && (
-                                                        <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-glow" />
+                                                        <div className="w-4 h-4 rounded-full bg-accent flex items-center justify-center text-[var(--accent-contrast)]">
+                                                            <Check size={10} strokeWidth={4} />
+                                                        </div>
                                                     )}
                                                 </button>
                                             ))}

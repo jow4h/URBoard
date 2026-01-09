@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "URBoard - Futuristic New Tab",
+    "name": "URBoard",
     "version": "1.0",
-    "description": "Premium and futuristic dashboard for your new tab experience.",
+    "description": "URBoard Chrome Extension",
     "chrome_url_overrides": {
         "newtab": "redirect.html"
     },

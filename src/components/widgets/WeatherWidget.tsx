@@ -49,7 +49,7 @@ function WeatherSettings({ settings, onSave, onToggleMinimal, t }: {
                         }`}
                 >
                     <span className="text-[10px] font-black uppercase tracking-widest">{t("minimalMode")}</span>
-                    <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${settings.weatherMinimalMode ? 'bg-accent border-accent text-white' : 'border-white/20'
+                    <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${settings.weatherMinimalMode ? 'bg-accent border-accent text-[var(--accent-contrast)]' : 'border-white/20'
                         }`}>
                         {settings.weatherMinimalMode && <Check size={10} strokeWidth={4} />}
                     </div>

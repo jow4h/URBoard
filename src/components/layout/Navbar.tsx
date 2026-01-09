@@ -50,7 +50,7 @@ export default function Navbar({ showClock = true, showActions = true }: { showC
                                     onClick={() => setAddMenuOpen(!addMenuOpen)}
                                     className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-lg ${addMenuOpen
                                         ? "bg-white text-black shadow-white/20"
-                                        : "bg-accent/20 text-accent border border-accent/20 hover:bg-accent hover:text-white"
+                                        : "bg-accent/20 text-accent border border-accent/20 hover:bg-accent hover:text-[var(--accent-contrast)]"
                                         }`}
                                 >
                                     <Plus size={16} className={addMenuOpen ? "rotate-45 transition-transform" : "transition-transform"} />
@@ -88,7 +88,7 @@ export default function Navbar({ showClock = true, showActions = true }: { showC
                                                             <w.icon size={16} strokeWidth={2.5} />
                                                             <span className="text-xs font-bold uppercase tracking-widest">{w.label}</span>
                                                         </div>
-                                                        {isActive && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
+                                                        {isActive && <div className="w-1.5 h-1.5 bg-[var(--accent-contrast)] rounded-full" />}
                                                     </button>
                                                 );
                                             })}
