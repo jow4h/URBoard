@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "URBoard",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "URBoard Chrome Extension",
     "chrome_url_overrides": {
         "newtab": "redirect.html"

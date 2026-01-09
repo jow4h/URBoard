@@ -83,22 +83,33 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-xl mx-auto"
+                        className="flex flex-col md:flex-row gap-6 justify-center items-center w-full max-w-4xl mx-auto"
                     >
                         <a
-                            href="https://github.com/jow4h/URBoard/releases/download/latest/urboard-extension.zip"
+                            href="https://github.com/jow4h/URBoard/releases/download/latest/urboard-chrome.zip"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full max-w-md min-h-[90px] px-6 py-5 bg-accent text-[var(--accent-contrast)] font-black rounded-[1.5rem] flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-accent/20 group"
+                            className="w-full md:flex-1 min-h-[100px] px-8 py-6 bg-accent text-[var(--accent-contrast)] font-black rounded-3xl flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-accent/20 group border-2 border-accent/20"
                         >
                             <div className="flex items-center gap-3">
-                                <span className="text-xl tracking-tight uppercase">{t("ctaDownload")}</span>
+                                <span className="text-xl tracking-tight uppercase">{t("ctaDownloadChrome")}</span>
                                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                             </div>
-                            <span className="text-[11px] uppercase tracking-[0.1em] opacity-80 mt-1.5 font-bold text-center leading-none">{t("ctaDownloadDesc")}</span>
+                            <span className="text-[11px] uppercase tracking-[0.1em] opacity-80 mt-2 font-bold text-center leading-none">{t("ctaDownloadDesc")}</span>
                         </a>
 
-
+                        <a
+                            href="https://github.com/jow4h/URBoard/releases/download/latest/urboard-firefox.xpi"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full md:flex-1 min-h-[100px] px-8 py-6 bg-white/5 text-white font-black rounded-3xl flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl border-2 border-white/10 group hover:border-white/20 hover:bg-white/[0.08]"
+                        >
+                            <div className="flex items-center gap-3">
+                                <span className="text-xl tracking-tight uppercase">{t("ctaDownloadFirefox")}</span>
+                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </div>
+                            <span className="text-[11px] uppercase tracking-[0.1em] opacity-40 mt-2 font-bold text-center leading-none group-hover:opacity-60 transition-opacity">{t("ctaDownloadDescFirefox")}</span>
+                        </a>
                     </motion.div>
                 </div>
 

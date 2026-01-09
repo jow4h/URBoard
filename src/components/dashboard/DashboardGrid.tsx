@@ -300,7 +300,7 @@ export default function DashboardGrid() {
 
                         <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-white/40">
                             <SettingsIcon size={14} />
-                            {t("edit")} butonuna tıkla ve başla
+                            {t("edit")} {t("clickToStart")}
                         </div>
                     </motion.div>
                 </div>

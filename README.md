@@ -4,15 +4,31 @@ URBoard is a minimalist, beautiful, and highly customizable personal dashboard t
 
 ## ✨ Features
 
-- 🕒 **Dynamic Clock**: Localized time and date tracking.
-- 🌦️ **Weather Widget**: Real-time weather updates powered by Open-Meteo.
-- 🔗 **Smart Shortcuts**: Manage your most visited sites.
-- 🎵 **Spotify Integration**: View and control your currently playing music.
-- 📝 **To-Do List**: Stay organized with a sleek task manager.
-- 📌 **Sticky Notes**: Quick multi-line notes with neon futuristic tints.
-- ⏳ **Pomodoro Timer**: Boost productivity with Focus/Break modes.
-- 🎨 **Customization**: Accent colors, dynamic wallpapers, and multi-language support.
-- 🔒 **Privacy**: No tracking, all data is stored locally.
+- 🕒 **Dynamic Clock**: Multiple styles (Modern, Retro, Neon, Glitch).
+- 🌦️ **Weather Widget**: Real-time updates with minimal and full display modes.
+- 🔗 **Smart Shortcuts**: Quick access to your favorite sites with auto-favicons.
+- 🎵 **Spotify Integration**: Real-time "Now Playing" with progress bar and controls.
+- 📝 **To-Do List**: Sleek task management to stay organized.
+- 📌 **Sticky Notes**: Multi-line neon-tinted notes for quick ideas.
+- ⏳ **Pomodoro Timer**: Integrated Focus and Break cycles for productivity.
+- 🎨 **Visual Excellence**: Custom accent colors, dynamic wallpapers, and glassmorphism.
+- 🔒 **Privacy Focused**: No tracking, no data collection. All settings stay in your browser.
+
+## 🛠️ Installation
+
+### Chrome / Edge / Brave
+1. Download `urboard-chrome.zip` from the [Latest Release](https://github.com/jow4h/URBoard/releases/latest).
+2. Extract the ZIP file to a folder.
+3. Open `chrome://extensions` in your browser.
+4. Enable **"Developer mode"** (top right).
+5. Click **"Load unpacked"** and select the extracted folder.
+
+### Firefox
+1. Soon ❤️
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 Created with ❤️ by [jow4h](https://github.com/jow4h)
