@@ -39,6 +39,7 @@ interface SettingsContextType {
     isExtension: boolean;
     updateAvailable: string | null;
     t: (key: TranslationKey) => string;
+    toggleWidget: (id: string) => void;
 }
 
 const defaultLinks: ShortcutLink[] = [];
@@ -235,6 +236,14 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
         setSettings((prev) => ({ ...prev, ...newSettings }));
     };
 
+    const toggleWidget = (id: string) => {
+        const isActive = settings.activeWidgets.includes(id);
+        const next = isActive
+            ? settings.activeWidgets.filter((w) => w !== id)
+            : [...settings.activeWidgets, id];
+        updateSettings({ activeWidgets: next });
+    };
+
     useEffect(() => {
         document.documentElement.style.setProperty("--color-accent", settings.accentColor);
 
@@ -262,7 +271,7 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
     };
 
     return (
-        <SettingsContext.Provider value={{ settings, updateSettings, isLoaded, isExtension, updateAvailable, t }}>
+        <SettingsContext.Provider value={{ settings, updateSettings, isLoaded, isExtension, updateAvailable, t, toggleWidget }}>
             {children}
         </SettingsContext.Provider>
     );

@@ -19,7 +19,7 @@ const colors = [
 export default function Onboarding({ onComplete }: { onComplete: () => void }) {
     const { settings, updateSettings, t } = useSettings();
     const [step, setStep] = useState(1);
-    const totalSteps = 4;
+    const totalSteps = 5;
 
     const nextStep = () => setStep(s => Math.min(s + 1, totalSteps + 1));
     const prevStep = () => setStep(s => Math.max(s - 1, 1));
@@ -171,10 +171,89 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
                     </motion.div>
                 );
 
-            case 4: // Completion
+            case 4: // Wallpaper Selection
+                const wallpapers = [
+                    { id: "default", label: t("wallpaperDefault"), url: "" },
+                    { id: "scifi", label: t("wallpaperScifi"), url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000" },
+                    { id: "nature", label: t("wallpaperNature"), url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=2000" },
+                    { id: "abstract", label: t("wallpaperAbstract"), url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=2000" },
+                    { id: "custom", label: t("wallpaperCustom"), url: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=2000" },
+                ];
                 return (
                     <motion.div
                         key="step4"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-8"
+                    >
+                        <div className="space-y-2">
+                            <h2 className="text-4xl font-black italic tracking-tighter uppercase leading-none">
+                                {t("wallpaper")}
+                            </h2>
+                            <p className="text-white/40 text-lg font-medium">{t("themeSubtext")}</p>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mt-8">
+                            {wallpapers.map((wp) => (
+                                <button
+                                    key={wp.id}
+                                    onClick={() => updateSettings({ wallpaper: wp.id as any })}
+                                    className={`relative group h-24 rounded-2xl border-2 overflow-hidden transition-all ${settings.wallpaper === wp.id
+                                        ? "border-accent shadow-[0_0_30px_rgba(var(--accent-rgb),0.3)] scale-[1.02]"
+                                        : "border-white/5 grayscale hover:grayscale-0 hover:border-white/20"
+                                        }`}
+                                >
+                                    {wp.url ? (
+                                        <div
+                                            className="absolute inset-0 bg-cover bg-center"
+                                            style={{ backgroundImage: `url(${wp.url})` }}
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 bg-black" />
+                                    )}
+                                    <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity ${settings.wallpaper === wp.id ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+                                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                                        <span className="text-[10px] uppercase font-black tracking-widest text-white">{wp.label}</span>
+                                        {settings.wallpaper === wp.id && (
+                                            <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center text-[var(--accent-contrast)]">
+                                                <Check size={12} strokeWidth={4} />
+                                            </div>
+                                        )}
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+
+                        {settings.wallpaper === "custom" && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="relative group"
+                            >
+                                <div className="absolute inset-0 bg-accent/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="relative">
+                                    <div className="absolute left-6 top-1/2 -translate-y-1/2 text-accent">
+                                        <Wand2 size={20} />
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={settings.customWallpaperUrl}
+                                        onChange={(e) => updateSettings({ customWallpaperUrl: e.target.value })}
+                                        placeholder={t("customUrl")}
+                                        className="w-full bg-white/5 border-2 border-white/10 rounded-2xl pl-16 pr-6 py-4 text-sm font-bold placeholder:text-white/10 focus:outline-none focus:border-accent/40 transition-all shadow-xl"
+                                        autoFocus
+                                    />
+                                </div>
+                            </motion.div>
+                        )}
+                    </motion.div>
+                );
+
+            case 5: // Completion
+                return (
+                    <motion.div
+                        key="step5"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
@@ -228,7 +307,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
                 {/* Progress Header */}
                 <div className="flex items-center justify-between mb-12">
                     <div className="flex gap-2">
-                        {[1, 2, 3, 4].map((i) => (
+                        {[1, 2, 3, 4, 5].map((i) => (
                             <div
                                 key={i}
                                 className={`h-1.5 rounded-full transition-all duration-500 ${step >= i ? "w-8 bg-accent shadow-[0_0_10px_rgba(var(--accent-rgb),0.5)]" : "w-4 bg-white/10"
@@ -236,7 +315,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
                             />
                         ))}
                     </div>
-                    <span className="text-[10px] uppercase font-black tracking-[0.3em] text-white/40">Step 0{step} / 04</span>
+                    <span className="text-[10px] uppercase font-black tracking-[0.3em] text-white/40">Step 0{step} / 05</span>
                 </div>
 
                 {/* Content */}
@@ -258,12 +337,12 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
                     </button>
 
                     <button
-                        onClick={step === 4 ? handleFinish : nextStep}
+                        onClick={step === 5 ? handleFinish : nextStep}
                         className="group flex items-center gap-4 px-10 py-5 bg-white text-black font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl relative overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                         <span className="relative z-10 text-xs uppercase tracking-widest group-hover:text-[var(--accent-contrast)] transition-colors">
-                            {step === 4 ? t("readyGo").split("!")[0] : t("continue")}
+                            {step === 5 ? t("readyGo").split("!")[0] : t("continue")}
                         </span>
                         <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform group-hover:text-[var(--accent-contrast)]" />
                     </button>

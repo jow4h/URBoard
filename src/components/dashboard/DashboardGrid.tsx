@@ -10,7 +10,7 @@ import SpotifyWidget from "@/components/widgets/SpotifyWidget";
 import SearchWidget from "@/components/widgets/SearchWidget";
 import NotesWidget from "@/components/widgets/NotesWidget";
 import ClockWidget from "@/components/widgets/ClockWidget";
-import { X as CloseIcon, MapPin, Music, CheckSquare, Timer, Link as LinkIcon, Settings as SettingsIcon, StickyNote, Clock as ClockIcon, Plus as PlusIcon } from "lucide-react";
+import { X as CloseIcon, Settings as SettingsIcon, Plus as PlusIcon } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 import { motion } from "framer-motion";
 
@@ -20,16 +20,8 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 
 export default function DashboardGrid() {
-    const { settings, updateSettings, t } = useSettings();
+    const { settings, updateSettings, t, toggleWidget } = useSettings();
     const [activeSettingsWidget, setActiveSettingsWidget] = useState<string | null>(null);
-
-    const toggleWidget = (id: string) => {
-        const isActive = settings.activeWidgets.includes(id);
-        const next = isActive
-            ? settings.activeWidgets.filter((w) => w !== id)
-            : [...settings.activeWidgets, id];
-        updateSettings({ activeWidgets: next });
-    };
 
     const onLayoutChange = (_currentLayout: unknown, allLayouts: unknown) => {
         updateSettings({ layouts: allLayouts as Record<string, any[]> });

@@ -7,17 +7,9 @@ import SettingsPanel from "@/components/dashboard/SettingsPanel";
 import { useSettings } from "@/context/SettingsContext";
 
 export default function Navbar({ showClock = true, showActions = true }: { showClock?: boolean, showActions?: boolean }) {
-    const { settings, updateSettings, t } = useSettings();
+    const { settings, updateSettings, t, toggleWidget } = useSettings();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [addMenuOpen, setAddMenuOpen] = useState(false);
-
-    const toggleWidget = (id: string) => {
-        const isActive = settings.activeWidgets.includes(id);
-        const next = isActive
-            ? settings.activeWidgets.filter((w) => w !== id)
-            : [...settings.activeWidgets, id];
-        updateSettings({ activeWidgets: next });
-    };
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
