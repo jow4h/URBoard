@@ -29,6 +29,7 @@ interface Settings {
     customWallpaperUrl: string;
     wallpaper: "default" | "scifi" | "nature" | "abstract" | "custom";
     clockStyle: "modern" | "retro" | "neon" | "glitch";
+    weatherTheme: "glass" | "minimal" | "vibrant" | "retro";
     layouts?: Record<string, any[]>;
 }
 
@@ -61,6 +62,7 @@ const defaultSettings: Settings = {
     language: "tr", // Will be auto-detected in useEffect
     wallpaper: "default",
     clockStyle: "modern",
+    weatherTheme: "glass",
     layouts: {
         lg: [
             { i: "clock", x: 0, y: 0, w: 4, h: 4, minW: 2, minH: 2 },

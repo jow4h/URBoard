@@ -117,6 +117,9 @@ export const translations = {
         clickToStart: "butonuna tıkla ve başla",
         editShortcut: "Kısayolu Düzenle",
         update: "Güncelle",
+        weatherTheme: "Hava Durumu Teması",
+        glass: "Cam",
+        vibrant: "Canlı",
     },
     en: {
         settings: "Settings",
@@ -234,6 +237,9 @@ export const translations = {
         clickToStart: "button to start",
         editShortcut: "Edit Shortcut",
         update: "Update",
+        weatherTheme: "Weather Theme",
+        glass: "Glass",
+        vibrant: "Vibrant",
     },
     ru: {
         settings: "Настройки",
@@ -351,6 +357,9 @@ export const translations = {
         clickToStart: "кнопку, чтобы начать",
         editShortcut: "Редактировать ссылку",
         update: "Обновить",
+        weatherTheme: "Тема погоды",
+        glass: "Стекло",
+        vibrant: "Яркая",
     },
     de: {
         settings: "Einstellungen",
@@ -468,6 +477,9 @@ export const translations = {
         clickToStart: "Taste, um zu starten",
         editShortcut: "Verknüpfung bearbeiten",
         update: "Aktualisieren",
+        weatherTheme: "Wetter-Theme",
+        glass: "Glas",
+        vibrant: "Lebhaft",
     },
 };
 

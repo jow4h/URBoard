@@ -12,13 +12,20 @@ interface WeatherWidgetProps {
     onSettingsClose?: () => void;
 }
 
-function WeatherSettings({ settings, onSave, onToggleMinimal, t }: {
+function WeatherSettings({ settings, onSave, onUpdate, t }: {
     settings: any,
     onSave: (city: string) => void,
-    onToggleMinimal: () => void,
+    onUpdate: (updates: any) => void,
     t: (key: any) => string
 }) {
     const [cityInput, setCityInput] = useState(settings.weatherCity || "");
+
+    const themes = [
+        { id: "glass", name: t("glass") },
+        { id: "minimal", name: t("minimal") },
+        { id: "vibrant", name: t("vibrant") },
+        { id: "retro", name: t("retro") },
+    ];
 
     return (
         <div className="flex flex-col h-full p-4 space-y-4 overflow-y-auto custom-scrollbar">
@@ -41,19 +48,20 @@ function WeatherSettings({ settings, onSave, onToggleMinimal, t }: {
                     />
                 </div>
 
-                <button
-                    onClick={onToggleMinimal}
-                    className={`w-full py-3 px-4 rounded-xl flex items-center justify-between transition-all border ${settings.weatherMinimalMode
-                        ? 'bg-accent/10 border-accent/40 text-white shadow-[0_0_20px_rgba(var(--accent-rgb),0.1)]'
-                        : 'bg-white/5 border-white/5 hover:bg-white/10 text-white/40'
-                        }`}
-                >
-                    <span className="text-[10px] font-black uppercase tracking-widest">{t("minimalMode")}</span>
-                    <div className={`w-4 h-4 rounded flex items-center justify-center border transition-all ${settings.weatherMinimalMode ? 'bg-accent border-accent text-[var(--accent-contrast)]' : 'border-white/20'
-                        }`}>
-                        {settings.weatherMinimalMode && <Check size={10} strokeWidth={4} />}
+                <div className="space-y-2">
+                    <label className="text-[10px] text-white/40 uppercase font-bold pl-1">{t("weatherTheme")}</label>
+                    <div className="grid grid-cols-2 gap-2">
+                        {themes.map((theme) => (
+                            <button
+                                key={theme.id}
+                                onClick={() => onUpdate({ weatherTheme: theme.id })}
+                                className={`flex items-center justify-center p-3 rounded-xl border transition-all ${settings.weatherTheme === theme.id ? 'bg-accent/20 border-accent text-white' : 'bg-white/5 border-white/5 text-white/40'}`}
+                            >
+                                <span className="text-[10px] font-bold uppercase tracking-widest">{theme.name}</span>
+                            </button>
+                        ))}
                     </div>
-                </button>
+                </div>
 
                 <button
                     onClick={() => onSave(cityInput)}
@@ -95,7 +103,7 @@ export default function WeatherWidget({ isSettingsOpen, onSettingsClose }: Weath
                 <WeatherSettings
                     settings={settings}
                     onSave={handleSave}
-                    onToggleMinimal={() => updateSettings({ weatherMinimalMode: !settings.weatherMinimalMode })}
+                    onUpdate={updateSettings}
                     t={t}
                 />
             );
@@ -132,8 +140,8 @@ export default function WeatherWidget({ isSettingsOpen, onSettingsClose }: Weath
             );
         }
 
-        // Minimal mode
-        if (settings.weatherMinimalMode) {
+        // Minimal theme
+        if (settings.weatherTheme === "minimal") {
             return (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                     <span className="text-7xl font-light tracking-tighter text-white drop-shadow-2xl">
@@ -146,7 +154,49 @@ export default function WeatherWidget({ isSettingsOpen, onSettingsClose }: Weath
             );
         }
 
-        // Full weather display
+        // Vibrant theme
+        if (settings.weatherTheme === "vibrant") {
+            const getVibrantStyles = (id: number) => {
+                if (id >= 200 && id < 600) return "text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]";
+                if (id >= 600 && id < 700) return "text-cyan-200 drop-shadow-[0_0_15px_rgba(165,243,252,0.5)]";
+                if (id >= 700 && id < 800) return "text-gray-400 drop-shadow-[0_0_15px_rgba(156,163,175,0.5)]";
+                if (id === 800) return "text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]";
+                return "text-white/80 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]";
+            };
+
+            return (
+                <div className="flex flex-col h-full justify-between p-2">
+                    <div className="flex items-center justify-center flex-1">
+                        <div className="flex flex-col items-center">
+                            <Cloud size={64} className={getVibrantStyles(data.weather?.[0]?.id || 800)} strokeWidth={1} />
+                            <span className="text-6xl font-black text-white mt-4 tracking-tighter">
+                                {Math.round(data.main.temp)}°
+                            </span>
+                            <span className="text-[10px] text-white/40 uppercase font-black tracking-widest mt-2">{data.name || settings.weatherCity}</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        if (settings.weatherTheme === "retro") {
+            return (
+                <div className="flex flex-col h-full items-center justify-center p-6 border-4 border-white/20 font-mono">
+                    <div className="text-6xl font-bold bg-white text-black px-4 py-2 mb-6 shadow-[8px_8px_0_rgba(255,255,255,0.2)]">
+                        {Math.round(data.main.temp)}C
+                    </div>
+                    <div className="text-sm uppercase font-black text-white tracking-[0.2em] text-center">
+                        {data.name || settings.weatherCity}
+                    </div>
+                    <div className="text-[10px] uppercase text-white/50 mt-8 space-y-1 font-bold">
+                        <div>HUMIDITY: {data.main.humidity}%</div>
+                        <div>WIND: {Math.round(data.wind?.speed || 0)} KMH</div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Default Glass theme display
         return (
             <div className="flex flex-col h-full justify-between p-2">
                 <div className="flex items-start justify-between">
