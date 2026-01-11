@@ -50,8 +50,9 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
     const [isAdding, setIsAdding] = useState(false);
     const [newName, setNewName] = useState("");
     const [newUrl, setNewUrl] = useState("");
+    const [editingLink, setEditingLink] = useState<ShortcutLink | null>(null);
 
-    const addLink = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!newName || !newUrl) return;
 
@@ -60,19 +61,37 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
             formattedUrl = `https://${newUrl}`;
         }
 
-        const newLink: ShortcutLink = {
-            id: Date.now().toString(),
-            name: newName,
-            url: formattedUrl,
-        };
+        if (editingLink) {
+            updateSettings({
+                userLinks: settings.userLinks.map(link =>
+                    link.id === editingLink.id
+                        ? { ...link, name: newName, url: formattedUrl }
+                        : link
+                ),
+            });
+        } else {
+            const newLink: ShortcutLink = {
+                id: Date.now().toString(),
+                name: newName,
+                url: formattedUrl,
+            };
 
-        updateSettings({
-            userLinks: [...settings.userLinks, newLink],
-        });
+            updateSettings({
+                userLinks: [...settings.userLinks, newLink],
+            });
+        }
 
         setNewName("");
         setNewUrl("");
         setIsAdding(false);
+        setEditingLink(null);
+    };
+
+    const startEditing = (link: ShortcutLink) => {
+        setEditingLink(link);
+        setNewName(link.name);
+        setNewUrl(link.url);
+        setIsAdding(true);
     };
 
     const removeLink = (id: string) => {
@@ -105,10 +124,14 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
             return (
                 <div className="h-full flex flex-col justify-center p-5 animate-in fade-in zoom-in-95 duration-200">
                     <h4 className="text-xs font-black uppercase tracking-widest text-white mb-6 flex items-center gap-2">
-                        <Plus size={14} className="text-accent" strokeWidth={3} />
-                        {t("addShortcut")}
+                        {editingLink ? (
+                            <Settings2 size={14} className="text-accent" strokeWidth={3} />
+                        ) : (
+                            <Plus size={14} className="text-accent" strokeWidth={3} />
+                        )}
+                        {editingLink ? t("editShortcut") : t("addShortcut")}
                     </h4>
-                    <form onSubmit={addLink} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-1.5">
                             <label className="text-[10px] text-white/40 uppercase font-black pl-1 tracking-widest">{t("name")}</label>
                             <input
@@ -132,9 +155,9 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                         </div>
                         <div className="pt-4 grid grid-cols-2 gap-3">
                             <button type="submit" className="py-3 bg-accent text-[var(--accent-contrast)] rounded-xl text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(var(--accent-rgb),0.3)] hover:shadow-[0_0_25px_rgba(var(--accent-rgb),0.5)] active:scale-95">
-                                <Check size={14} strokeWidth={3} /> {t("add")}
+                                <Check size={14} strokeWidth={3} /> {editingLink ? t("update") : t("add")}
                             </button>
-                            <button type="button" onClick={() => setIsAdding(false)} className="py-3 bg-white/5 text-white/40 hover:text-white hover:bg-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-95">
+                            <button type="button" onClick={() => { setIsAdding(false); setEditingLink(null); }} className="py-3 bg-white/5 text-white/40 hover:text-white hover:bg-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-95">
                                 {t("cancel")}
                             </button>
                         </div>
@@ -157,15 +180,26 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                                         </div>
                                         <span className="text-xs text-white/80 group-hover:text-white transition-colors truncate">{link.name}</span>
                                     </a>
-                                    <button
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            removeLink(link.id);
-                                        }}
-                                        className="opacity-0 group-hover:opacity-100 p-1.5 text-white/20 hover:text-red-500 transition-all"
-                                    >
-                                        <X size={14} />
-                                    </button>
+                                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                startEditing(link);
+                                            }}
+                                            className="p-1.5 text-white/20 hover:text-accent transition-all"
+                                        >
+                                            <Settings2 size={14} />
+                                        </button>
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                removeLink(link.id);
+                                            }}
+                                            className="p-1.5 text-white/20 hover:text-red-500 transition-all"
+                                        >
+                                            <X size={14} />
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                             {settings.userLinks.length === 0 && !isAdding && (
@@ -184,15 +218,26 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                                         <img src={getFaviconUrl(link.url)} alt={link.name} className="w-1/2 h-1/2 object-contain group-hover:scale-110 transition-transform" />
                                         <span className="text-[8px] uppercase tracking-widest text-white/30 group-hover:text-white/60 transition-colors truncate w-[80%] text-center">{link.name}</span>
                                     </a>
-                                    <button
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            removeLink(link.id);
-                                        }}
-                                        className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 bg-red-500 text-white rounded-full p-1 shadow-lg transition-all scale-75 group-hover:scale-100"
-                                    >
-                                        <X size={12} />
-                                    </button>
+                                    <div className="absolute -top-1 -right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100">
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                startEditing(link);
+                                            }}
+                                            className="bg-accent text-[var(--accent-contrast)] rounded-full p-1 shadow-lg"
+                                        >
+                                            <Settings2 size={12} />
+                                        </button>
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                removeLink(link.id);
+                                            }}
+                                            className="bg-red-500 text-white rounded-full p-1 shadow-lg"
+                                        >
+                                            <X size={12} />
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                         </div>

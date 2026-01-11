@@ -115,6 +115,8 @@ export const translations = {
         edit: "Düzenle",
         done: "Bitti",
         clickToStart: "butonuna tıkla ve başla",
+        editShortcut: "Kısayolu Düzenle",
+        update: "Güncelle",
     },
     en: {
         settings: "Settings",
@@ -230,6 +232,8 @@ export const translations = {
         edit: "Edit",
         done: "Done",
         clickToStart: "button to start",
+        editShortcut: "Edit Shortcut",
+        update: "Update",
     },
     ru: {
         settings: "Настройки",
@@ -345,6 +349,8 @@ export const translations = {
         edit: "Изменить",
         done: "Готово",
         clickToStart: "кнопку, чтобы начать",
+        editShortcut: "Редактировать ссылку",
+        update: "Обновить",
     },
     de: {
         settings: "Einstellungen",
@@ -460,6 +466,8 @@ export const translations = {
         edit: "Bearbeiten",
         done: "Fertig",
         clickToStart: "Taste, um zu starten",
+        editShortcut: "Verknüpfung bearbeiten",
+        update: "Aktualisieren",
     },
 };
 
