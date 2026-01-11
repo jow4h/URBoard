@@ -154,21 +154,22 @@ export default function WeatherWidget({ isSettingsOpen, onSettingsClose }: Weath
             );
         }
 
-        // Vibrant theme
         if (settings.weatherTheme === "vibrant") {
-            const getVibrantStyles = (id: number) => {
-                if (id >= 200 && id < 600) return "text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]";
-                if (id >= 600 && id < 700) return "text-cyan-200 drop-shadow-[0_0_15px_rgba(165,243,252,0.5)]";
-                if (id >= 700 && id < 800) return "text-gray-400 drop-shadow-[0_0_15px_rgba(156,163,175,0.5)]";
-                if (id === 800) return "text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]";
-                return "text-white/80 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]";
+            const getVibrantStyles = (code: number) => {
+                // Open-Meteo Codes
+                if (code >= 51 && code <= 67) return "text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]"; // Rain
+                if (code >= 71 && code <= 86) return "text-cyan-200 drop-shadow-[0_0_15px_rgba(165,243,252,0.5)]"; // Snow
+                if (code >= 45 && code <= 48) return "text-gray-400 drop-shadow-[0_0_15px_rgba(156,163,175,0.5)]"; // Fog
+                if (code === 0 || code === 1) return "text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"; // Clear
+                if (code >= 95) return "text-purple-400 drop-shadow-[0_0_15px_rgba(192,132,252,0.5)]"; // Storm
+                return "text-white/80 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"; // Clouds/Overcast
             };
 
             return (
                 <div className="flex flex-col h-full justify-between p-2">
                     <div className="flex items-center justify-center flex-1">
                         <div className="flex flex-col items-center">
-                            <Cloud size={64} className={getVibrantStyles(data.weather?.[0]?.id || 800)} strokeWidth={1} />
+                            <Cloud size={64} className={getVibrantStyles(data.weather?.[0]?.code || 0)} strokeWidth={1} />
                             <span className="text-6xl font-black text-white mt-4 tracking-tighter">
                                 {Math.round(data.main.temp)}°
                             </span>
