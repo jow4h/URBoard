@@ -172,7 +172,7 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                     {settings.linksViewMode === 'list' ? (
                         <div className="space-y-2">
                             {settings.userLinks.map((link) => (
-                                <div key={link.id} className="group relative flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/20 hover:bg-accent/5 transition-all">
+                                <div key={link.id} className={`group relative flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 transition-all ${!settings.isLocked ? 'hover:border-accent/20 hover:bg-accent/5' : ''}`}>
                                     <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 flex-1">
                                         <div className="w-8 h-8 rounded-lg bg-white/5 p-1.5 flex items-center justify-center">
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -180,26 +180,28 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                                         </div>
                                         <span className="text-xs text-white/80 group-hover:text-white transition-colors truncate">{link.name}</span>
                                     </a>
-                                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                startEditing(link);
-                                            }}
-                                            className="p-1.5 text-white/20 hover:text-accent transition-all"
-                                        >
-                                            <Settings2 size={14} />
-                                        </button>
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                removeLink(link.id);
-                                            }}
-                                            className="p-1.5 text-white/20 hover:text-red-500 transition-all"
-                                        >
-                                            <X size={14} />
-                                        </button>
-                                    </div>
+                                    {!settings.isLocked && (
+                                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    startEditing(link);
+                                                }}
+                                                className="p-1.5 text-white/20 hover:text-accent transition-all"
+                                            >
+                                                <Settings2 size={14} />
+                                            </button>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    removeLink(link.id);
+                                                }}
+                                                className="p-1.5 text-white/20 hover:text-red-500 transition-all"
+                                            >
+                                                <X size={14} />
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                             {settings.userLinks.length === 0 && !isAdding && (
@@ -212,46 +214,50 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                     ) : (
                         <div className="grid grid-cols-[repeat(auto-fill,minmax(60px,1fr))] gap-3">
                             {settings.userLinks.map((link) => (
-                                <div key={link.id} className="group relative flex flex-col items-center justify-center aspect-square rounded-2xl bg-white/5 border border-white/5 hover:border-accent/30 hover:bg-accent/5 transition-all cursor-pointer">
+                                <div key={link.id} className={`group relative flex flex-col items-center justify-center aspect-square rounded-2xl bg-white/5 border border-white/5 transition-all cursor-pointer ${!settings.isLocked ? 'hover:border-accent/30 hover:bg-accent/5' : ''}`}>
                                     <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 w-full h-full justify-center">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img src={getFaviconUrl(link.url)} alt={link.name} className="w-1/2 h-1/2 object-contain group-hover:scale-110 transition-transform" />
                                         <span className="text-[8px] uppercase tracking-widest text-white/30 group-hover:text-white/60 transition-colors truncate w-[80%] text-center">{link.name}</span>
                                     </a>
-                                    <div className="absolute -top-1 -right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100">
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                startEditing(link);
-                                            }}
-                                            className="bg-accent text-[var(--accent-contrast)] rounded-full p-1 shadow-lg"
-                                        >
-                                            <Settings2 size={12} />
-                                        </button>
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                removeLink(link.id);
-                                            }}
-                                            className="bg-red-500 text-white rounded-full p-1 shadow-lg"
-                                        >
-                                            <X size={12} />
-                                        </button>
-                                    </div>
+                                    {!settings.isLocked && (
+                                        <div className="absolute -top-1 -right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100">
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    startEditing(link);
+                                                }}
+                                                className="bg-accent text-[var(--accent-contrast)] rounded-full p-1 shadow-lg"
+                                            >
+                                                <Settings2 size={12} />
+                                            </button>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    removeLink(link.id);
+                                                }}
+                                                className="bg-red-500 text-white rounded-full p-1 shadow-lg"
+                                            >
+                                                <X size={12} />
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
                     )}
                 </div>
 
-                <div className="absolute bottom-0 inset-x-0 p-4 pointer-events-none flex justify-center">
-                    <button
-                        onClick={() => setIsAdding(true)}
-                        className="pointer-events-auto shadow-lg bg-white/10 hover:bg-accent hover:text-[var(--accent-contrast)] backdrop-blur-md border border-white/10 text-white/60 rounded-full p-3 transition-all transform hover:scale-110 active:scale-95"
-                    >
-                        <Plus size={20} />
-                    </button>
-                </div>
+                {!settings.isLocked && (
+                    <div className="absolute bottom-0 inset-x-0 p-4 pointer-events-none flex justify-center">
+                        <button
+                            onClick={() => setIsAdding(true)}
+                            className="pointer-events-auto shadow-lg bg-white/10 hover:bg-accent hover:text-[var(--accent-contrast)] backdrop-blur-md border border-white/10 text-white/60 rounded-full p-3 transition-all transform hover:scale-110 active:scale-95"
+                        >
+                            <Plus size={20} />
+                        </button>
+                    </div>
+                )}
             </div>
         );
     };
