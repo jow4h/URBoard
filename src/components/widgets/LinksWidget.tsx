@@ -173,7 +173,7 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                         <div className="space-y-2">
                             {settings.userLinks.map((link) => (
                                 <div key={link.id} className="group relative flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/20 hover:bg-accent/5 transition-all">
-                                    <a href={link.url} className="flex items-center gap-3 flex-1">
+                                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 flex-1">
                                         <div className="w-8 h-8 rounded-lg bg-white/5 p-1.5 flex items-center justify-center">
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img src={getFaviconUrl(link.url)} alt="" className="w-full h-full object-contain" />
@@ -213,7 +213,7 @@ export default function LinksWidget({ isSettingsOpen, onSettingsClose }: LinksWi
                         <div className="grid grid-cols-[repeat(auto-fill,minmax(60px,1fr))] gap-3">
                             {settings.userLinks.map((link) => (
                                 <div key={link.id} className="group relative flex flex-col items-center justify-center aspect-square rounded-2xl bg-white/5 border border-white/5 hover:border-accent/30 hover:bg-accent/5 transition-all cursor-pointer">
-                                    <a href={link.url} className="flex flex-col items-center gap-2 w-full h-full justify-center">
+                                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 w-full h-full justify-center">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img src={getFaviconUrl(link.url)} alt={link.name} className="w-1/2 h-1/2 object-contain group-hover:scale-110 transition-transform" />
                                         <span className="text-[8px] uppercase tracking-widest text-white/30 group-hover:text-white/60 transition-colors truncate w-[80%] text-center">{link.name}</span>
