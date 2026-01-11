@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Palette, Search, Globe, Image as ImageIcon, Check } from "lucide-react";
+import { X, Palette, Search, Globe, Image as ImageIcon, Check, Heart, Coffee, Github } from "lucide-react";
 import { useSettings, SearchEngine } from "@/context/SettingsContext";
 import { Language } from "@/lib/translations";
 
@@ -248,6 +248,46 @@ export default function SettingsPanel({ isOpen, onClose }: { isOpen: boolean; on
                                     </section>
                                 </>
                             )}
+
+                            <div className="h-px bg-white/5" />
+
+                            {/* Donation Section */}
+                            <section className="space-y-4">
+                                <div className="flex items-center gap-2 text-red-500">
+                                    <Heart size={18} fill="currentColor" />
+                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t("support")}</h3>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <a
+                                        href="https://buymeacoffee.com/jow4h"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5 hover:border-[#FFDD00]/50 hover:bg-[#FFDD00]/10 transition-all group"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-[#FFDD00] flex items-center justify-center text-black">
+                                            <Coffee size={20} />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-white group-hover:text-[#FFDD00] transition-colors">{t("buyMeACoffee")}</span>
+                                            <span className="text-[10px] text-white/40 uppercase font-medium">buymeacoffee.com/jow4h</span>
+                                        </div>
+                                    </a>
+                                    <a
+                                        href="https://github.com/sponsors/jow4h"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5 hover:border-[#EA4AAA]/50 hover:bg-[#EA4AAA]/10 transition-all group"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-[#EA4AAA] flex items-center justify-center text-white">
+                                            <Github size={20} />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-white group-hover:text-[#EA4AAA] transition-colors">{t("githubSponsors")}</span>
+                                            <span className="text-[10px] text-white/40 uppercase font-medium">github.com/sponsors/jow4h</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </section>
                         </div>
 
                         <div className="p-8 border-t border-white/5">

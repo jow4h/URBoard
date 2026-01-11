@@ -120,6 +120,9 @@ export const translations = {
         weatherTheme: "Hava Durumu Teması",
         glass: "Cam",
         vibrant: "Canlı",
+        support: "Destek Ol",
+        buyMeACoffee: "Kahve Ismarla",
+        githubSponsors: "GitHub Sponsor",
     },
     en: {
         settings: "Settings",
@@ -240,6 +243,9 @@ export const translations = {
         weatherTheme: "Weather Theme",
         glass: "Glass",
         vibrant: "Vibrant",
+        support: "Support",
+        buyMeACoffee: "Buy Me a Coffee",
+        githubSponsors: "GitHub Sponsors",
     },
     ru: {
         settings: "Настройки",
@@ -360,6 +366,9 @@ export const translations = {
         weatherTheme: "Тема погоды",
         glass: "Стекло",
         vibrant: "Яркая",
+        support: "Поддержать",
+        buyMeACoffee: "Угостить кофе",
+        githubSponsors: "Спонсоры GitHub",
     },
     de: {
         settings: "Einstellungen",
@@ -480,6 +489,9 @@ export const translations = {
         weatherTheme: "Wetter-Theme",
         glass: "Glas",
         vibrant: "Lebhaft",
+        support: "Unterstützen",
+        buyMeACoffee: "Kaffee spendieren",
+        githubSponsors: "GitHub Sponsoren",
     },
 };
 
