@@ -1,10 +1,13 @@
 {
     "manifest_version": 3,
     "name": "URBoard",
-    "version": "1.0.0",
+    "version": "1.1",
     "description": "URBoard Firefox Extension",
     "chrome_url_overrides": {
         "newtab": "redirect.html"
+    },
+    "chrome_settings_overrides": {
+        "homepage": "redirect.html"
     },
     "permissions": [],
     "icons": {

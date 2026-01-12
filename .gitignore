@@ -50,6 +50,9 @@ next-env.d.ts
 
 # extension builds
 *.zip
+*.xpi
+/urboard-extension/
+/dist/
 
 # editor / IDE
 .vscode/
