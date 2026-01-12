@@ -24,7 +24,7 @@ URBoard is a minimalist, beautiful, and highly customizable personal dashboard t
 5. Click **"Load unpacked"** and select the extracted folder.
 
 ### Firefox
-1. Soon ❤️
+You can install the official extension from the [Mozilla Add-ons Store](https://addons.mozilla.org/tr/firefox/addon/urboard/).
 
 ## 📄 License
 

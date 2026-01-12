@@ -99,7 +99,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
                         </a>
 
                         <a
-                            href="https://github.com/jow4h/URBoard/releases/download/latest/urboard-firefox.xpi"
+                            href="https://addons.mozilla.org/tr/firefox/addon/urboard/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full md:flex-1 min-h-[100px] px-8 py-6 bg-white/5 text-white font-black rounded-3xl flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl border-2 border-white/10 group hover:border-white/20 hover:bg-white/[0.08]"
