@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, ShieldCheck, Component, MousePointer2, ChevronDown, Github } from "lucide-react";
+import { ArrowRight, Zap, ShieldCheck, Component, MousePointer2, ChevronDown, Github, Send } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 
 interface LandingPageProps {
@@ -188,6 +188,9 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
                     </div>
 
                     <div className="flex items-center gap-8">
+                        <a href="https://t.me/urboardproject" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
+                            <Send size={24} />
+                        </a>
                         <a href="https://github.com/jow4h" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
                             <Github size={24} />
                         </a>
